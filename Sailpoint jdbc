@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Application PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Application connector="sailpoint.connector.JDBCConnector" featuresString="DISCOVER_SCHEMA, PROVISIONING, SYNC_PROVISIONING, DIRECT_PERMISSIONS, SEARCH, ENABLE, UNLOCK, ACCOUNT_ONLY_REQUEST, ADDITIONAL_ACCOUNT_REQUEST" icon="databaseIcon" name="abc_bank" profileClass="spadmin" type="JDBC">
+  <Attributes>
+    <Map>
+      <entry key="SQL" value="select * from accounts;"/>
+      <entry key="acctAggregationEnd">
+        <value>
+          <Date>1669617455634</Date>
+        </value>
+      </entry>
+      <entry key="acctAggregationStart">
+        <value>
+          <Date>1669617455602</Date>
+        </value>
+      </entry>
+      <entry key="afterProvisioningRule"/>
+      <entry key="aggregationMode">
+        <value>
+          <Boolean/>
+        </value>
+      </entry>
+      <entry key="beforeProvisioningRule"/>
+      <entry key="compositeDefinition"/>
+      <entry key="connMaxRetry" value="3"/>
+      <entry key="connRetryEnable">
+        <value>
+          <Boolean/>
+        </value>
+      </entry>
+      <entry key="connWaitTimeForRetry" value="2"/>
+      <entry key="deltaTable"/>
+      <entry key="driverClass" value="com.mysql.cj.jdbc.Driver"/>
+      <entry key="getDeltaSQL"/>
+      <entry key="indexColumns">
+        <value>
+          <List>
+            <String>AccountNumber</String>
+          </List>
+        </value>
+      </entry>
+      <entry key="isPermissionEnabled">
+        <value>
+          <Boolean/>
+        </value>
+      </entry>
+      <entry key="jdbcCreateProvisioningRule" value="abc bank create account rule"/>
+      <entry key="jdbcDisableProvisioningRule" value="abc bank disable provisioning policy"/>
+      <entry key="jdbcEnableProvisioningRule" value="abc bank provision enable"/>
+      <entry key="jdbcExceptionBucketing">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="mergeColumns">
+        <value>
+          <List>
+            <String>Privilege</String>
+          </List>
+        </value>
+      </entry>
+      <entry key="mergeRows">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="nativeChangeDetectionAttributeScope" value="entitlements"/>
+      <entry key="nativeChangeDetectionAttributes"/>
+      <entry key="nativeChangeDetectionEnabled">
+        <value>
+          <Boolean/>
+        </value>
+      </entry>
+      <entry key="nativeChangeDetectionOperations"/>
+      <entry key="noPermissions" value="false"/>
+      <entry key="operations" value="Create, Modify, Delete, Enable, Disable, Unlock"/>
+      <entry key="partitionMode">
+        <value>
+          <Boolean/>
+        </value>
+      </entry>
+      <entry key="partitionStatements"/>
+      <entry key="password" value="1:ACP:lfLkxSSfwUB789VY4CS1R4Y3sRVfoVImZzF0pzGb+qM="/>
+      <entry key="provisionRule" value="operationRule"/>
+      <entry key="sysDescriptions">
+        <value>
+          <Map>
+            <entry key="en_US"/>
+          </Map>
+        </value>
+      </entry>
+      <entry key="templateApplication" value="JDBC Template"/>
+      <entry key="testConnSQL"/>
+      <entry key="url" value="jdbc:mysql://localhost:3306/abc_bank_accounts"/>
+      <entry key="useExecuteQuery">
+        <value>
+          <Boolean/>
+        </value>
+      </entry>
+      <entry key="useStoredProcedureDelta">
+        <value>
+          <Boolean/>
+        </value>
+      </entry>
+      <entry key="useStoredProcedureDirectPermission">
+        <value>
+          <Boolean/>
+        </value>
+      </entry>
+      <entry key="useStoredProcedureGetObject">
+        <value>
+          <Boolean/>
+        </value>
+      </entry>
+      <entry key="useStoredProcedurePartition">
+        <value>
+          <Boolean/>
+        </value>
+      </entry>
+      <entry key="useStoredProcedureSqlStmt">
+        <value>
+          <Boolean/>
+        </value>
+      </entry>
+      <entry key="useStoredProcedureTestConn">
+        <value>
+          <Boolean/>
+        </value>
+      </entry>
+      <entry key="user" value="root"/>
+    </Map>
+  </Attributes>
+  <CorrelationRule>
+    <Reference class="sailpoint.object.Rule" name="abc bank correlation"/>
+  </CorrelationRule>
+  <CustomizationRule>
+    <Reference class="sailpoint.object.Rule" name="abc customization rule"/>
+  </CustomizationRule>
+  <Owner>
+    <Reference class="sailpoint.object.Identity" name="spadmin"/>
+  </Owner>
+  <ProvisioningForms>
+    <Form name="abc bank create account policy" objectType="account" type="Create">
+      <Attributes>
+        <Map>
+          <entry key="pageTitle" value="abc bank create account policy"/>
+        </Map>
+      </Attributes>
+      <Section name="Section 1">
+        <Field displayName="Account Number" name="AccountNumber" required="true" type="string">
+          <RuleRef>
+            <Reference class="sailpoint.object.Rule" name="abc bank account number value rule"/>
+          </RuleRef>
+        </Field>
+        <Field displayName="Privilege" name="Privilege" required="true" type="string" value="user"/>
+        <Field displayName="Account Status" name="AccountStatus" required="true" type="int" value="1">
+          <Attributes>
+            <Map>
+              <entry key="readOnly" value="true"/>
+            </Map>
+          </Attributes>
+        </Field>
+      </Section>
+    </Form>
+    <Form name="abc_diable_policy_form" objectType="account" type="Disable">
+      <Attributes>
+        <Map>
+          <entry key="pageTitle" value="abc_diable_policy_form"/>
+        </Map>
+      </Attributes>
+      <Section name="Section 1">
+        <Field name="AccountStatus" type="int" value="0"/>
+      </Section>
+    </Form>
+  </ProvisioningForms>
+  <Schemas>
+    <Schema displayAttribute="AccountNumber" identityAttribute="AccountNumber" instanceAttribute="" nativeObjectType="account" objectType="account" permissionsRemediationModificationType="None">
+      <AttributeDefinition name="AccountNumber" type="string">
+        <Description/>
+      </AttributeDefinition>
+      <AttributeDefinition entitlement="true" managed="true" multi="true" name="Privilege" type="string">
+        <Description/>
+      </AttributeDefinition>
+      <AttributeDefinition name="AccountStatus" type="int">
+        <Description/>
+      </AttributeDefinition>
+      <AttributeDefinition name="AccountOwnerType" type="string">
+        <Description/>
+      </AttributeDefinition>
+    </Schema>
+  </Schemas>
+  <ApplicationScorecard/>
+</Application>
